@@ -1,0 +1,4 @@
+interface:
+  display_name: "MudForge Worlds and Migration"
+  short_description: "Inspect exports and assist client migration"
+  default_prompt: "Use $mudforge-worlds-migration to assess this export and its migration gaps."

@@ -1,0 +1,4 @@
+interface:
+  display_name: "MudForge Protocols"
+  short_description: "Handle GMCP, MSDP, and session events"
+  default_prompt: "Use $mudforge-events-protocols to diagnose partial GMCP updates in this session."

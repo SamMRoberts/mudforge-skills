@@ -1,0 +1,4 @@
+interface:
+  display_name: "MudForge Mapper"
+  short_description: "Inspect maps and preserve room identities"
+  default_prompt: "Use $mudforge-mapper to inspect these room and exit conflicts safely."

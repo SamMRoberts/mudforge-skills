@@ -1,0 +1,33 @@
+{
+  "name": "mudforge-toolbox",
+  "version": "0.1.0",
+  "description": "macOS-first MudForge skills, specialist agents, examples, and artifact tools.",
+  "author": {
+    "name": "Sam Roberts"
+  },
+  "repository": "https://github.com/SamMRoberts/mudforge-skills",
+  "skills": "./skills/",
+  "keywords": [
+    "mudforge",
+    "lua",
+    "macos",
+    "mud",
+    "mapper"
+  ],
+  "interface": {
+    "displayName": "MudForge Toolbox",
+    "shortDescription": "Develop and diagnose MudForge on macOS.",
+    "longDescription": "Eight focused skills with three separately activated specialist agents, safe artifact inspection, Lua examples, and explicit native acceptance boundaries.",
+    "developerName": "Sam Roberts",
+    "category": "Developer Tools",
+    "capabilities": [
+      "Read",
+      "Write"
+    ],
+    "defaultPrompt": [
+      "Create a MudForge Lua plugin.",
+      "Diagnose this MudForge issue on macOS.",
+      "Inspect a world export and its migration gaps."
+    ]
+  }
+}

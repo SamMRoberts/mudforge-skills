@@ -1,0 +1,4 @@
+interface:
+  display_name: "MudForge Testing"
+  short_description: "Run artifact checks and native acceptance"
+  default_prompt: "Use $mudforge-testing to verify this plugin in a disposable test world."

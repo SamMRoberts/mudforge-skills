@@ -141,3 +141,10 @@ dist
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
 .vite/
+
+# Python tools and private native acceptance artifacts
+.venv/
+__pycache__/
+*.pyc
+.DS_Store
+.native-test/

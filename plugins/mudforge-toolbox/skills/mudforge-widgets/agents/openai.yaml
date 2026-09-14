@@ -1,0 +1,4 @@
+interface:
+  display_name: "MudForge Widgets"
+  short_description: "Build reactive HTML and canvas widgets"
+  default_prompt: "Use $mudforge-widgets to build a reactive HUD with unknown-data states."
