@@ -1,1 +1,1 @@
-# mudforge-llm-plugin
+# mudforge-skills
