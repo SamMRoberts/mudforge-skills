@@ -8,12 +8,21 @@ evidence boundaries. This bundle does not include an MCP server or a UI driver.
 
 ## Install and activate
 
-This ZIP is a **Codex plugin**, not a MudForge content package. Extract it into
-a directory named `mudforge-toolbox`. Register it using a Codex plugin
-marketplace configured for your environment, then start a new Codex task so the
-skills are discovered. Nothing in these helpers modifies a marketplace or
-installs into your personal environment automatically.
+This is a **Codex plugin**, not a MudForge content package. The source repository
+ships the `mudforge-skills` marketplace. From its repository root, run:
 
+```sh
+codex plugin marketplace add .
+codex plugin add mudforge-toolbox@mudforge-skills
+```
+
+Once the catalog is published to GitHub, replace `.` in the first command with
+`SamMRoberts/mudforge-skills` to install without a local checkout. Start a new
+Codex task after installation so the skills are discovered. Nothing in these
+helpers modifies a marketplace or installs into your personal environment
+automatically.
+
+For a standalone ZIP, extract it into a directory named `mudforge-toolbox`.
 For a private local marketplace, place the extracted folder at
 `<marketplace-root>/plugins/mudforge-toolbox` and create
 `<marketplace-root>/.agents/plugins/marketplace.json` with this entry:
@@ -33,7 +42,7 @@ For a private local marketplace, place the extracted folder at
 
 Then run `codex plugin marketplace add <marketplace-root>` and
 `codex plugin add mudforge-toolbox@mudforge-local`. This is a user-run example,
-not a marketplace shipped or registered by this repository. Check your installed
+separate from the repository's `mudforge-skills` marketplace. Check your installed
 CLI's `codex plugin --help` if its install interface differs.
 
 Custom agents are separate from skills' `agents/openai.yaml` display metadata.

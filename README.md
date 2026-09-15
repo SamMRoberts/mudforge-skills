@@ -1,13 +1,47 @@
-# MudForge Toolbox
+# MudForge Skills marketplace
 
-A macOS-first Codex plugin for developing and diagnosing the MudForge MUD
-client. Version **0.1.0** includes eight skills, three separately activated
-specialist agents, nine Lua examples, and five Python helpers.
+A Codex plugin marketplace containing **MudForge Toolbox**, a macOS-first plugin
+for developing and diagnosing the MudForge MUD client. Version **0.1.0** includes
+eight skills, three separately activated specialist agents, nine Lua examples,
+and five Python helpers.
 
 The distributable source is in [plugins/mudforge-toolbox](plugins/mudforge-toolbox/README.md).
 See that guide for plugin installation, explicit project-agent activation, and
 example usage. Building this repository does not install or register anything
 in your personal Codex environment.
+
+## Install in Codex
+
+The marketplace catalog is [`.agents/plugins/marketplace.json`](.agents/plugins/marketplace.json).
+Its name is `mudforge-skills`, and it lists `mudforge-toolbox` from
+`./plugins/mudforge-toolbox`, relative to this repository root.
+
+From a local checkout, run these commands at the repository root:
+
+```sh
+codex plugin marketplace add .
+codex plugin add mudforge-toolbox@mudforge-skills
+```
+
+Once the marketplace catalog has been committed and pushed to GitHub, users can
+install directly from the repository:
+
+```sh
+codex plugin marketplace add SamMRoberts/mudforge-skills
+codex plugin add mudforge-toolbox@mudforge-skills
+```
+
+Choose either the local checkout or GitHub source for this marketplace. Start a
+new Codex task after installation to load the skills. The specialist agents need
+the separate project activation described in the
+[plugin guide](plugins/mudforge-toolbox/README.md#install-and-activate).
+
+To check discovery, run `codex plugin marketplace list` and `codex plugin list`.
+For a GitHub source, refresh the catalog with
+`codex plugin marketplace upgrade mudforge-skills` before installing an updated
+plugin.
+
+## Included plugin
 
 | Skill | Coverage |
 |---|---|
