@@ -1,0 +1,4 @@
+interface:
+  display_name: "MudForge Plugins"
+  short_description: "Build plugins and injected Lua libraries"
+  default_prompt: "Use $mudforge-plugin-development to create a reload-safe plugin with persistent state."

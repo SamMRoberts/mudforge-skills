@@ -1,0 +1,4 @@
+interface:
+  display_name: "MudForge Lua"
+  short_description: "Write and debug Lua automation callbacks"
+  default_prompt: "Use $mudforge-lua-scripting to fix this trigger using the actual captured line."

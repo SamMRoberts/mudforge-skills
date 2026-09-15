@@ -1,0 +1,4 @@
+interface:
+  display_name: "MudForge on macOS"
+  short_description: "Configure and diagnose the macOS client"
+  default_prompt: "Use $mudforge-macos to diagnose this MudForge macOS installation."
