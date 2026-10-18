@@ -7,8 +7,10 @@
     {
       "name": "mudforge-toolbox",
       "source": {
-        "source": "local",
-        "path": "./plugins/mudforge-toolbox"
+        "source": "git-subdir",
+        "url": "https://github.com/SamMRoberts/mudforge-skills.git",
+        "path": "./plugins/mudforge-toolbox",
+        "ref": "main"
       },
       "policy": {
         "installation": "AVAILABLE",
