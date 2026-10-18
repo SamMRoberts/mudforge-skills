@@ -24,27 +24,19 @@ in your personal Codex environment.
 ## Install in Codex
 
 The marketplace catalog is [`.agents/plugins/marketplace.json`](.agents/plugins/marketplace.json).
-Its name is `mudforge-skills`, and it lists `mudforge-toolbox` from
-`./plugins/mudforge-toolbox`, relative to this repository root.
+Its name is `mudforge-skills`, and it loads `mudforge-toolbox` from
+`plugins/mudforge-toolbox` on the `main` branch of
+`https://github.com/SamMRoberts/mudforge-skills.git` using a `git-subdir` source.
 
-From a local checkout, run these commands at the repository root:
-
-```sh
-codex plugin marketplace add .
-codex plugin add mudforge-toolbox@mudforge-skills
-```
-
-Once the marketplace catalog has been committed and pushed to GitHub, users can
-install directly from the repository:
+Install directly from the repository:
 
 ```sh
 codex plugin marketplace add SamMRoberts/mudforge-skills
 codex plugin add mudforge-toolbox@mudforge-skills
 ```
 
-Choose either the local checkout or GitHub source for this marketplace. Start a
-new Codex task after installation to load the skills. The specialist agents need
-the separate project activation described in the
+Start a new Codex task after installation to load the skills. The specialist
+agents need the separate project activation described in the
 [plugin guide](plugins/mudforge-toolbox/README.md#install-and-activate).
 
 To check discovery, run `codex plugin marketplace list` and `codex plugin list`.
