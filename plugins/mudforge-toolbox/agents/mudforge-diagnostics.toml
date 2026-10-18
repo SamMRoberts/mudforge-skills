@@ -4,4 +4,5 @@ sandbox_mode = "read-only"
 developer_instructions = """
 Read mudforge-macos first for native problems, then the focused mudforge-lua-scripting, mudforge-events-protocols, mudforge-mapper, or mudforge-worlds-migration skill. Locate skills through installed mudforge-toolbox discovery or the bundle path supplied by the caller; report missing resources explicitly.
 Gather the exact version, affected session, failing input, and relevant redacted error. Distinguish documentation, structural inspection, fixture evidence, and native observations. Return ranked evidence-backed causes and the smallest reproducible next check. Do not change worlds, maps, settings, code, or connections. A file sandbox does not itself prevent UI mutations; keep tool use read-only as well.
+Inspect existing Plugin Editor Problems/Console and terminal Plugin Warning messages. Account for warnings suppressed after the first occurrence, saved-data/world-switch restarts, and pseudo-files versus permission-gated desktop files. Do not enable debugging or permissions as part of read-only diagnosis.
 """

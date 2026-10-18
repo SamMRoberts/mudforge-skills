@@ -13,7 +13,7 @@ fixture = {
   sequence=0, commands={}, commandRegistrations=0, triggers={}, aliases={}, timers={},
   outputs={}, vars={}, gmcp={}, msdp={}, events={}, widgets={}, widgetEvents={},
   bindings={}, contentWrites=0, subscriptionCount=0, connected=false, session="alpha",
-  ready=false, rooms={}, mapWrites=0, drawings={}, active=nil
+  ready=false, rooms={}, mapWrites=0, drawings={}, active=nil, widgetFont="21px Fixture"
 }
 local function id(prefix)
   fixture.sequence = fixture.sequence + 1
@@ -80,7 +80,8 @@ function drawRect(x,y,w,h,color,stroke)
 end
 function drawText(text,x,y,color,font)
   assert(type(x)=="number" and fixture.active, "incorrect drawing signature")
-  table.insert(fixture.drawings,{kind="text",active=fixture.active,text=text})
+  table.insert(fixture.drawings,{kind="text",active=fixture.active,text=text,
+    fontOverride=font,font=font or fixture.widgetFont})
 end
 function isMapReady() return fixture.ready end
 function onMapReady(fn) fixture.mapReadyCallback=fn end
@@ -153,7 +154,9 @@ class ExampleTests(unittest.TestCase):
         self.assertEqual(trigger.options.type, 'regex')
         match = re.fullmatch(trigger.pattern, 'Toolbox score: 42')
         self.assertIsNotNone(match)
-        self.assertIsNone(trigger.callback(runtime.lua.table_from(match.groups())))
+        raw_captures = runtime.lua.table_from(dict(enumerate(match.groups())))
+        wildcards = runtime.lua.table_from(dict(enumerate([match.group(0), *match.groups()])))
+        self.assertIsNone(trigger.callback(raw_captures, match.group(0), wildcards, match.group(0)))
         self.assertEqual(runtime.f.vars.score, '42')
         self.assertIsNone(re.fullmatch(trigger.pattern, 'Toolbox score: unavailable'))
         _, alias = runtime.only(runtime.f.aliases)
@@ -161,6 +164,16 @@ class ExampleTests(unittest.TestCase):
         match = re.fullmatch(alias.pattern, 'toolbox-score 17')
         alias.callback(runtime.lua.table_from([match.group(0), *match.groups()]))
         self.assertEqual(runtime.f.vars.score, '17')
+
+    def test_trigger_reads_first_wildcard_with_multiple_raw_captures(self):
+        runtime = Runtime('automation.lua')
+        runtime.g.init()
+        _, trigger = runtime.only(runtime.f.triggers)
+        # Exercise the callback boundary with unequal groups, not a native matcher.
+        raw_captures = runtime.lua.table_from({0: '42', 1: '900'})
+        wildcards = runtime.lua.table_from({0: '42/900', 1: '42', 2: '900'})
+        trigger.callback(raw_captures, '42/900', wildcards, '42/900')
+        self.assertEqual(runtime.f.vars.score, '42')
 
     def test_idempotent_init_and_cleanup(self):
         runtime = Runtime('automation.lua')
@@ -272,7 +285,7 @@ class ExampleTests(unittest.TestCase):
         self.assertEqual(runtime.f.bindings[widget].status, 'Ready')
         runtime.f.gmcp['Char.Vitals'](runtime.table(hp='not-a-number'))
         self.assertEqual(runtime.f.bindings[widget].hp, '?')
-        runtime.f.widgetEvents[widget].action()
+        runtime.f.widgetEvents[widget].action(runtime.table(action='reset'))
         self.assertEqual(runtime.f.bindings[widget].maximum, '?')
         runtime.command('toolbox-vitals-demo')
         runtime.g.onDisconnect('alpha')
@@ -282,16 +295,61 @@ class ExampleTests(unittest.TestCase):
         self.assertEqual(list(runtime.f.widgets), [])
         # The runtime's textContent patch itself requires native verification.
 
+    def test_vitals_reject_blank_before_host_numeric_coercion(self):
+        for example in ('session-vitals.lua', 'reactive-vitals.lua'):
+            with self.subTest(example=example):
+                runtime = Runtime(example)
+                # Inject one documented host quirk; this is not a transpiler emulator.
+                runtime.lua.execute('''
+                    local luaTonumber = tonumber
+                    function tonumber(value)
+                      if type(value) == "string" and value:match("^%s*$") then return 0 end
+                      return luaTonumber(value)
+                    end
+                ''')
+                runtime.g.init()
+                update = runtime.f.gmcp['Char.Vitals']
+                update(runtime.table(hp='25', maxhp='100'))
+                for value in ('', '   '):
+                    update(runtime.table(hp=value))
+                    if example == 'session-vitals.lua':
+                        event = runtime.f.events[len(list(runtime.f.events))]
+                        self.assertIsNone(event.data.hp)
+                        self.assertEqual(event.data.maxhp, 100)
+                    else:
+                        widget, _ = runtime.only(runtime.f.widgets)
+                        self.assertEqual(runtime.f.bindings[widget].hp, '?')
+                        self.assertEqual(runtime.f.bindings[widget].status, 'Waiting for valid vitals')
+
+    def test_hud_ignores_missing_malformed_and_unrelated_actions(self):
+        runtime = Runtime('reactive-vitals.lua')
+        runtime.g.init()
+        widget, _ = runtime.only(runtime.f.widgets)
+        runtime.command('toolbox-vitals-demo')
+        action = runtime.f.widgetEvents[widget].action
+        for payload in (None, 'reset', runtime.table(), runtime.table(action='other')):
+            action(payload)
+            self.assertEqual(runtime.f.bindings[widget].hp, '25')
+            self.assertEqual(runtime.f.bindings[widget].maximum, '100')
+        action(runtime.table(action='reset'))
+        self.assertEqual(runtime.f.bindings[widget].hp, '?')
+        self.assertEqual(runtime.f.bindings[widget].maximum, '?')
+
     def test_canvas_selects_widget_and_reflows(self):
         runtime = Runtime('canvas-status.lua')
         runtime.g.init()
         widget, _ = runtime.only(runtime.f.widgets)
         self.assertEqual(runtime.f.drawings[2].w, 224)
+        self.assertIsNone(runtime.f.drawings[3].fontOverride)
+        self.assertEqual(runtime.f.drawings[3].font, '21px Fixture')
+        runtime.f.widgetFont = '24px Changed'
         runtime.f.active = 'unrelated-widget'
         runtime.f.widgetEvents[widget].resize(runtime.table(width=320, height=120))
         self.assertEqual(runtime.f.drawings[5].active, widget)
         self.assertEqual(runtime.f.drawings[5].w, 304)
         self.assertEqual(runtime.f.drawings[5].h, 104)
+        self.assertIsNone(runtime.f.drawings[6].fontOverride)
+        self.assertEqual(runtime.f.drawings[6].font, '24px Changed')
 
     def test_mapper_preserves_existing_room_and_exit(self):
         runtime = Runtime()

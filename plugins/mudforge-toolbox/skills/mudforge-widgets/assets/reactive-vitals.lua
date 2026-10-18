@@ -1,6 +1,6 @@
 plugin = {
   id = "mudforge-toolbox-vitals", name = "Toolbox Vitals",
-  version = "0.1.0", author = "MudForge Toolbox",
+  version = "0.1.1", author = "MudForge Toolbox",
   description = "A partial-update HUD with explicit synthetic input.",
   settings = { saveState = false }
 }
@@ -12,6 +12,7 @@ local maximum = nil
 local label = "Vitals"
 
 local function number(value)
+  if type(value) == "string" and value:match("^%s*$") then return nil end
   local n = tonumber(value)
   if not n or n ~= n or n == math.huge or n == -math.huge or n < 0 then return nil end
   return n
@@ -68,8 +69,9 @@ function init()
     <div class="bar" aria-hidden="true"><div class="fill" data-mud-bind-style="width:percent"></div></div>
     <button type="button" data-mud-action="reset">Reset display</button>
   ]])
-  -- This fixture has exactly one action, so no undocumented payload field is needed.
-  registerWidgetEvent(widget, "action", reset)
+  registerWidgetEvent(widget, "action", function(event)
+    if type(event) == "table" and event.action == "reset" then reset() end
+  end)
   onGMCPUpdate("Char.Vitals", update)
   registerCommand("toolbox-vitals-demo", function()
     update({ hp = "25", maxhp = "100", label = "Synthetic <vitals> & data" })

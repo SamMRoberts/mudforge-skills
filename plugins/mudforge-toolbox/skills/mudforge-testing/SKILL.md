@@ -15,6 +15,9 @@ When testing a Lua feature, preserve the failing input and reproduce the bug
 before changing it where practical. Inject the documented API boundary to test
 logic. Separate that result from the JavaScript matcher/transpiler and native
 rendering/transport/persistence. Do not weaken assertions to accommodate a bug.
+Use the client's `feedTriggers` for disconnected runtime matching checks;
+calling a captured callback directly is only a logic test. Inspect Plugin Editor
+Problems/Console and `[Plugin Warning]` messages when a call appears to do nothing.
 
 Use native fixtures only in an identified disposable world. A public MUD or
 existing user world is not a substitute when isolation is unavailable. If native

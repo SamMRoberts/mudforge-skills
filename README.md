@@ -1,9 +1,15 @@
 # MudForge Skills marketplace
 
 A Codex plugin marketplace containing **MudForge Toolbox**, a macOS-first plugin
-for developing and diagnosing the MudForge MUD client. Version **0.1.0** includes
+for developing and diagnosing the MudForge MUD client. Version **0.1.1** includes
 eight skills, three separately activated specialist agents, nine Lua examples,
 and five Python helpers.
+
+Version 0.1.1 incorporates the supplied official authoring guide reviewed on
+2026-10-18, correcting trigger captures, storage ownership, library support,
+widget contracts, and map imports. Focused references cover newly documented
+capabilities without bundling the upstream manual. These are documentation and
+offline-fixture updates; native acceptance remains pending.
 
 The distributable source is in [plugins/mudforge-toolbox](plugins/mudforge-toolbox/README.md).
 See that guide for plugin installation, explicit project-agent activation, and

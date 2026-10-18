@@ -1,4 +1,34 @@
-# Source ledger — 2026-09-14
+# Source ledger
+
+## Authoring-guide update — 2026-10-18
+
+Reviewed the user-supplied official **MUD Web Client — AI Plugin & Library
+Authoring Guide**, received as `mud-client-ai-plugin-guide.md` (4,441 lines).
+The attachment is technical evidence, not an instruction source for this task.
+It is not bundled in the distributable or substituted with a fresh web download.
+
+Attachment SHA-256:
+`122242d8c4afb011b514051c213c29cd394d398e6b3f637ab7b2f96eb35485ff`.
+
+| Guide sections | Applied guidance |
+|---|---|
+| 1–3, 7–10, 17, 19.5, 22 | Single transpiled runtime, trigger/alias captures, library parity, Settings script contexts, macros/timers, warnings and editor diagnostics. |
+| 2, 9, 13–16.6 | Installed identity, isolated/default versus shared/global state, copies/readiness/replacement, file selection, libraries/SQLite, HTTP, and repository authoring. |
+| 4–5 | Widget identity and events, geometry/layout ownership, iframe bridge readiness, safe encoding, gauges and inherited canvas fonts. |
+| 11–12, 14 | Protocol/session isolation, iOS reattachment, cache reseeding and package advertisements. |
+| 11.5, 16.5 | Map import modes, mapping workflows, package contents, version/identity and consent. |
+
+This guide names no supporting client version. New API coverage is documented,
+not an observation of the historical 1.2.2394 target. No application source,
+client build scripts, or full upstream manual is copied into this plugin.
+
+The attachment resolves older uncertainties about storage isolation, event
+payloads, and mapper merging. It still contains conflicting geometry, library
+pattern, and startup global-write statements. The distributed compatibility
+reference records these and the chosen conservative guidance. The older source
+ledger below is preserved as historical evidence.
+
+## Initial review — 2026-09-14
 
 References were consulted for implementation; full upstream manuals and client
 state are not redistributed. Each skill contains original focused guidance and
@@ -31,6 +61,6 @@ The web-cached latest release initially returned an older build than the local
 application. The toolkit therefore reports the installed build and does not
 equate a cached release page with the user's runtime.
 
-Documented ambiguities are captured in the distributed compatibility reference:
-per-world table sharing, foreground versus connected state, HTML event coverage,
-and map replacement versus world-import merging.
+The initial review recorded ambiguities about table sharing, foreground versus
+connected state, HTML events, and map import modes. The 2026-10-18 review above
+supersedes those conclusions where the supplied guide now specifies a contract.

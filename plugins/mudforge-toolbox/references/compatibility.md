@@ -1,7 +1,9 @@
 # Compatibility and evidence
 
-Reference review: 2026-09-14. Initial installed application: MudForge 1.2.2394,
-macOS Apple Silicon. This identifies a target, not a native acceptance pass.
+Authoring-guide review: 2026-10-18, using the user-supplied official guide.
+Initial installed application observed on 2026-09-14: MudForge 1.2.2394,
+macOS Apple Silicon. This is a historical target, not a native acceptance pass.
+The supplied guide identifies no supporting client build.
 Intel macOS is a documented distribution target, not locally tested.
 
 ## Sources
@@ -9,8 +11,9 @@ Intel macOS is a documented distribution target, not locally tested.
 - [Client documentation](https://mudforge.org/#/docs): client operation and topic routing.
 - [Authoring guide](https://mudforge.org/docs/ai-plugin-guide.md): Lua runtime,
   lifecycle, callbacks, storage, libraries, protocols, and mapper contracts.
-- [Widgets and reactive binding](https://mudforge.org/#/docs/plugins): HTML events
-  and `data-mud-bind` APIs absent from portions of the downloadable guide.
+- [Widgets and reactive binding](https://mudforge.org/#/docs/plugins): supplemental
+  documentation consulted during the initial review; the supplied guide now
+  documents HTML events and `data-mud-bind` contracts directly.
 - [World files](https://mudforge.org/#/docs/world-files): ZIP worlds and legacy JSON imports.
 - [Packages](https://mudforge.org/#/docs/packages): `.mfp` contents and merge/uninstall behavior.
 - [Public project](https://github.com/Coffee-Nerd/MudForge): downloads and issues;
@@ -27,22 +30,42 @@ documented compatible approach; do not substitute Mudlet/Geyser calls by analogy
 The source ledger and verification report in the source repository record review
 hashes and actual test results. No copied upstream manual is distributed here.
 
-Distinguish four kinds of evidence: documentation, structural inspection,
-fixture execution, and native observations. Parsing Lua or running it in a VM
-does not test MudForge's JavaScript transpiler, transport, UI, or persistence.
+Distinguish documentation, structural inspection, injected fixture execution,
+native matcher replay, and native observations. Parsing Lua or running it in a
+VM does not test MudForge's JavaScript transpiler, transport, UI, or persistence.
+`feedTriggers` in MudForge exercises its matcher; it does not prove transport.
+
+## Corrected contracts
+
+- Trigger raw `captures` starts at zero; prefer the third argument's
+  `wildcards[1]` for the first group. Aliases retain full match at `[1]` and
+  first group at `[2]`.
+- Default variables, tables, and pseudo-files belong to the installed plugin
+  and world. Only explicit `"global"` scope shares an app-wide namespace.
+  Use `getPluginTable` to read another plugin's table explicitly.
+- Library `math`, `string`, and `table` implementations match plugin scope;
+  host APIs still require explicit injection. Global `unpack` also works in
+  plugin scope.
+- `importMapJson` defaults to destructive full replacement, but its third
+  argument supports additive `{ merge = true }` and room replacement with
+  `{ keepSettings = true }`. Do not confuse these with world-import modes.
 
 ## Known documentation ambiguities
 
-- Guide section 9 first describes isolated default storage, then clarifies that
-  saved tables are shared by plugins on the same world. Namespace saved-table
-  names; use default-scope variables for plugin-local scalar state.
-- `isActiveSession()` identifies the foreground session, not connectivity.
-  Although the guide's error table suggests it as a connection guard, use
-  connection hooks and handle an empty timer ID instead.
-- The guide's widget event list is narrower than the online HTML-widget page.
-  Check actual HTML action/key/submit and binding behavior in the target build.
-- World import offers conflict modes; `importMapJson` replaces the entire map.
-  Do not transfer the world-import merge guarantees to that mapper API.
+- The skeleton and error table say top-level widget `x/y` do not position it;
+  section 4's config table and examples explicitly support them when
+  `position` is omitted. Prefer nested `position`/`size` for new code.
+- Section 10 retains older claims about library pattern differences; section
+  16 explicitly describes restored standard-library parity. Use section 16's
+  contract and verify pattern-heavy ports in the target runtime.
+- The warning inventory says startup global writes are lost; section 9 says
+  `storageStatus("global") == "starting"` writes are buffered. For
+  durability-critical global writes, wait for `"ready"` and handle `"failed"`;
+  neither disputed behavior has been natively verified here.
+
+`isActiveSession()` means foreground, not connectivity. Use connection hooks
+and handle empty timer IDs. Current-style active-widget drawing is preferred;
+the guide also says older widget-id forms remain callable in the shared API.
 
 ## Boundaries
 

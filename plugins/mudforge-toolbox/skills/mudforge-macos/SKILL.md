@@ -17,6 +17,8 @@ choice. Do not infer credentials or connect to a sample public MUD. For display
 issues, check terminal/theme settings and widget layout separately from transport.
 For connectivity, distinguish DNS/TLS failures, disconnects, and missing protocol
 data using the actual error and a minimal redacted log excerpt.
+For script failures, inspect Plugin Editor Problems/Console and terminal
+`[Plugin Warning]` messages; a no-op can be an invalid target or missing context.
 
 Use [native operations](references/native-operations.md) for backup, test-world
 isolation, and troubleshooting. Prefer existing authorized UI tools and native

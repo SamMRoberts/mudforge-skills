@@ -5,7 +5,7 @@ description: Author and repair MudForge Lua plugins and shared libraries, includ
 
 # Plugin development
 
-Start with [lifecycle and libraries](references/lifecycle.md) and the
+Start with [lifecycle and communication](references/lifecycle.md) and the
 [compatibility notes](../../references/compatibility.md). Confirm the expected
 world/session, commands, widgets, persistence, and permissions. A Codex plugin
 manifest and a MudForge Lua plugin are different artifacts.
@@ -22,7 +22,15 @@ Use [injected-counter.lua](assets/injected-counter.lua) and
 library with injected APIs. Inspect the consuming plugin and dependency chain
 when diagnosing a library failure; do not add globals to make it work.
 
+Load [storage and user files](references/storage.md) for scope ownership,
+saved-data replacement, storage readiness, file picking, or read-only SQLite.
+Load [libraries](references/libraries.md) for sandbox boundaries, resolution
+precedence, dependency reload, or built-in helpers. Use
+[HTTP and publishing](references/http-publishing.md) for callback/permission
+contracts, repository identity, source hashes, and library metadata.
+
 For widgets or protocol consumers, load their focused skills. For distribution,
 use the client's documented plugin import/editor or package creation UI, then
 test load, reload, disable, re-enable, and world save/reopen. No package format
-is assumed from a filename alone.
+is assumed from a filename alone. Treat guide contracts as documentation
+evidence and record native validation separately.

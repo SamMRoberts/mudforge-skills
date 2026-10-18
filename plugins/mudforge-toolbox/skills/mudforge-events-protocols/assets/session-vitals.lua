@@ -1,6 +1,6 @@
 plugin = {
   id = "mudforge-toolbox-protocols", name = "Toolbox Protocols",
-  version = "0.1.0", author = "MudForge Toolbox",
+  version = "0.1.1", author = "MudForge Toolbox",
   description = "Session-local partial vitals, with synthetic demo input.",
   settings = { saveState = false }
 }
@@ -10,6 +10,7 @@ local hp = nil
 local maximum = nil
 
 local function numeric(value)
+  if type(value) == "string" and not string.find(value, "%S") then return nil end
   local n = tonumber(value)
   if not n or n ~= n or n == math.huge or n == -math.huge or n < 0 then return nil end
   return n

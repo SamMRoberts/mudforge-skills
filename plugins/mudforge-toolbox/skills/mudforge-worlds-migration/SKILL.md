@@ -24,5 +24,7 @@ Preserve source originals and report partial failures; never discard a timer or
 UI feature merely to make conversion appear complete.
 
 For distributing `.mfp`, prefer Settings → Packages → Create Package in the
-target client. Inspect the resulting bundle, then test install/update/uninstall
-in a disposable world. Do not hand-build undocumented container structures.
+target client, then Import Package for local acceptance. Keep the package ID
+stable and advertisement/manifest versions equal. Inspect the resulting bundle,
+then test install/update/uninstall in a disposable world. Read the format
+reference for the package manifest, library conflicts, and mapper import options.
