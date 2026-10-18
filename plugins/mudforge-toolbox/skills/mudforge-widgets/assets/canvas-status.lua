@@ -1,6 +1,6 @@
 plugin = {
   id = "mudforge-toolbox-canvas", name = "Toolbox Canvas",
-  version = "0.1.0", author = "MudForge Toolbox",
+  version = "0.1.1", author = "MudForge Toolbox",
   description = "A resize-aware canvas with explicit active-widget selection."
 }
 
@@ -14,7 +14,7 @@ local function draw()
   setActiveWidget(widget)
   clear("#17212b")
   drawRect(8, 8, math.max(1, width - 16), math.max(1, height - 16), "#294455", "#75d6a5")
-  drawText("Local canvas ready", 18, 40, "#f4f7fa", "16px monospace")
+  drawText("Local canvas ready", 18, 40, "#f4f7fa")
 end
 
 function init()

@@ -1,10 +1,16 @@
-# MudForge Toolbox 0.1.0
+# MudForge Toolbox 0.1.1
 
 Eight Codex skills and three specialist agents for macOS MudForge. The skills
 cover native operations, Lua, plugins/libraries, widgets, protocols, mapping,
 worlds/migration, and testing. Start with the relevant skill in `skills/`.
 Read [compatibility and sources](references/compatibility.md) for version and
 evidence boundaries. This bundle does not include an MCP server or a UI driver.
+
+The 0.1.1 update incorporates the official authoring guide supplied for review on
+2026-10-18. It corrects trigger captures, storage ownership, library parity,
+widget behavior, and map import modes, and adds focused guidance for current
+APIs. The guide does not identify a minimum supporting client build; verify the
+specific feature in the target client before claiming native support.
 
 ## Install and activate
 

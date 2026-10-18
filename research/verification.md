@@ -1,4 +1,69 @@
-# Verification — 2026-09-14
+# Verification history
+
+## 0.1.1 regression reproduction — 2026-10-18
+
+Before the example fixes, the corrected Lua fixtures reproduced four failures:
+the existing single-group trigger test no longer saved its first capture, an
+unequal-group callback saved the second raw capture instead of the first
+wildcard, missing/unrelated widget actions cleared the HUD, and the canvas
+overrode the widget font. The unchanged baseline had passed all 32 tests and
+bundle validation; its old trigger fixture supplied an incorrect one-based raw
+capture array.
+
+The previous report below remains historical. Its independent forward-check
+item 1 endorsed raw capture `[1]`; the supplied guide and corrected regression
+supersede that conclusion. Current guidance uses the third callback argument's
+`wildcards[1]`. No native matcher or application acceptance was run for this
+update.
+
+An additional regression injected the documented blank-string-to-zero numeric
+conversion at the API boundary. Both vitals examples initially treated blank
+health as zero; explicit blank/whitespace rejection now keeps it unknown. This
+is a narrow injected behavior check, not an emulation of the transpiler.
+
+## 0.1.1 offline verification — 2026-10-18
+
+Commands used Python 3.14.8 from the existing development environment at
+`/Users/samroberts/Repo/SamMRoberts/mudforge-skills/.venv/bin/python`, with
+PyYAML 6.0.3 and Lupa 2.6's Lua 5.1 module. No dependencies were changed.
+
+- `python -m unittest discover -s tests -p test_examples.py -v`: **14 passed**.
+  Covers corrected zero-based raw captures versus one-based wildcards,
+  unequal-group regression, unchanged alias indexing, validated reset actions,
+  inherited canvas fonts across redraw, blank numeric rejection, and the
+  existing lifecycle, partial-data, isolation, and map-preservation checks.
+- `python -m unittest discover -s tests -v`: **35 passed**. This includes
+  deterministic build bytes, extracted-bundle relocation, and helper behavior.
+- `python plugins/mudforge-toolbox/scripts/validate_plugin.py`: accepted
+  manifest, all eight skills, three agent TOMLs, and local reference links.
+- The installed skill-creator `scripts/quick_validate.py` accepted all eight
+  skill folders. `git diff --check` passed.
+
+Independent agents received realistic authoring/migration requests and the
+revised skills without the intended answers. Their read-only outputs correctly
+distinguished imported Settings timers from plugin timers, preserved package
+identity and consent, used widget ready handshakes and inherited canvas fonts,
+and chose explicit map merge behavior. Follow-up clarified the acceptance
+table's timer wording and linked map backup preparation to native export.
+The runtime scenario identified missing explicit JSON encode/decode call
+guidance; that gap is addressed in the focused HTTP reference. Character IDs
+and trigger-only recovery remain server-specific inputs, not invented APIs.
+
+Native transpilation/matching, UI, persistence, HTTP permission handling,
+imports/exports, and iOS reattachment remain **pending**. No native app actions,
+installation, publication, commits, or pushes were performed for this update.
+
+## 0.1.1 built artifact — 2026-10-18
+
+`python plugins/mudforge-toolbox/scripts/build_plugin.py --output dist/mudforge-toolbox.zip`
+built the final bundle. A second temporary build produced identical ZIP bytes.
+Archive integrity passed, and all **50 files** matched the distributable source
+names and bytes. The ZIP contains version 0.1.1, eight skills, and three agent
+definitions; research and tests are excluded. The adjacent checksum matched.
+
+SHA-256: `7707c40da16f6fc4aa06ee7715c79c038de5dcfb8c2054bb3ccbd788bbdd7f35`.
+
+## Initial verification — 2026-09-14
 
 ## Executed offline checks
 

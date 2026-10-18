@@ -1,6 +1,6 @@
 plugin = {
   id = "mudforge-toolbox-automation", name = "Toolbox Automation",
-  version = "0.1.0", author = "MudForge Toolbox",
+  version = "0.1.1", author = "MudForge Toolbox",
   description = "Local capture and replaceable timer demonstration.",
   settings = { saveState = false }
 }
@@ -18,8 +18,8 @@ end
 function init()
   if initialized then return end
   initialized = true
-  triggerId = addTrigger("^Toolbox score: ([0-9]+)$", function(c)
-    local score = tonumber(c[1])
+  triggerId = addTrigger("^Toolbox score: ([0-9]+)$", function(captures, line, wildcards)
+    local score = tonumber(wildcards[1])
     if score then setVariable("score", score) end
   end, { type = "regex" })
   aliasId = addAlias("^toolbox-score ([0-9]+)$", "", function(m)
