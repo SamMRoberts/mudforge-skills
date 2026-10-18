@@ -76,6 +76,11 @@ room-preserving operation.
 
 ## Minimap and events
 
+For a complete native minimap plus hand-drawn radar starter, see
+[mapper-minimap.lua](../assets/mapper-minimap.lua) and its
+[custom-map example notes](custom-map-example.md). It uses map data without
+editing rooms or walking; adapt its display rather than copying a map database.
+
 `createMapperWidget(name,opts?)` returns an embedded real-map widget ID or nil.
 Options include title/geometry, `lockedArea`, `fixedZoom` (0.1–2), and
 `interactive` (false by default). It does not own map data, settings, or the

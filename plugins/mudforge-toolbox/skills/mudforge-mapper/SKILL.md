@@ -22,6 +22,11 @@ updates only when the task authorizes their replacement semantics.
 only absent rooms/exits and reports conflicts; it is not a transactional
 importer. Keep partial outcomes visible.
 
+For custom map UI, adapt [mapper-minimap.lua](assets/mapper-minimap.lua): a
+read-only native minimap beside a canvas radar. Read the
+[custom-map example notes](references/custom-map-example.md) for projection,
+redraws, visibility, bounded click highlights, and native acceptance limits.
+
 Plan routes without walking by default. Walk or enable click-to-walk only when
 movement is requested; confirm the world and retain `stopWalk` as an abort path.
 Before replacement or a consequential import, export and verify a backup and

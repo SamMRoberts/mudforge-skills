@@ -1,5 +1,52 @@
 # Verification history
 
+## 0.1.2 minimap starter — 2026-10-18
+
+Added the supplied example as an adapted native minimap/custom canvas radar
+starter, with a focused authoring reference. Source provenance and hash are
+recorded in the source ledger. No native application actions were performed.
+
+Commands used the existing development environment at
+`/Users/samroberts/Repo/SamMRoberts/mudforge-skills/.venv/bin/python`.
+
+- `python -m unittest discover -s tests -p test_examples.py -v`: **23 passed**,
+  including nine new minimap tests and Lua 5.1 parsing of all ten examples.
+  New fixtures cover cold/duplicate readiness and setup, native embedding
+  refusal with radar fallback, missing/unmapped locations, malformed numeric
+  records, string-key neighborhoods, same-floor filtering, south-positive
+  projection, clipping, player-last drawing, map-update/resize redraws,
+  inherited fonts, live forced visibility, timer/highlight refusal,
+  disconnected clicks, replacement/expiry, and disconnect/cleanup behavior.
+  Captured callbacks after cleanup remain inert. These are injected logic
+  checks, not a native renderer or transpiler emulator.
+- `python -m unittest discover -s tests -v`: **44 passed**, retaining the
+  existing helper, artifact safety, reproducible build, and extracted-bundle
+  relocation coverage.
+- Bundle validation accepted the manifest, eight skills, three agent TOMLs,
+  and local links. The installed skill-creator validator accepted all eight
+  skills. `git diff --check` passed.
+- Independent read-only review compared the starter, notes, and tests against
+  both supplied sources; no actionable findings were reported. The reviewer
+  also ran the 23 example tests successfully.
+
+Fetched `origin` and verified its primary branch at `5668767`. The previous
+worktree base already had identical files. Created the fresh branch
+`codex/add-native-minimap-starter` from `origin/main`; before/after hashes
+confirmed preservation of tracked edits and both new files. No existing branch
+was deleted or rewritten, and no commits or pushes were made for this update.
+
+`python plugins/mudforge-toolbox/scripts/build_plugin.py --output dist/mudforge-toolbox.zip`
+built version **0.1.2** with **52 files**, including the new starter and notes.
+The archive names/bytes matched source, ZIP integrity passed, its checksum
+matched, and a second temporary build produced identical ZIP bytes.
+
+SHA-256: `51bc143e36d373444e9469922e74b052605c5621c035e9f125896bdb748d2ca3`.
+
+Native first-frame rendering, mapper/transpiler behavior, docking/resize,
+font changes, embedded room clicks, saved visibility/reopen, reload cleanup,
+and two-world isolation remain **pending**. No installation or publication
+occurred. The example notes describe the disposable native acceptance checks.
+
 ## 0.1.1 regression reproduction — 2026-10-18
 
 Before the example fixes, the corrected Lua fixtures reproduced four failures:

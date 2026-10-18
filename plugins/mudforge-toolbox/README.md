@@ -1,10 +1,16 @@
-# MudForge Toolbox 0.1.1
+# MudForge Toolbox 0.1.2
 
 Eight Codex skills and three specialist agents for macOS MudForge. The skills
 cover native operations, Lua, plugins/libraries, widgets, protocols, mapping,
 worlds/migration, and testing. Start with the relevant skill in `skills/`.
 Read [compatibility and sources](references/compatibility.md) for version and
 evidence boundaries. This bundle does not include an MCP server or a UI driver.
+
+Version 0.1.2 includes ten Lua examples. The new
+[native minimap and custom radar starter](skills/mudforge-mapper/assets/mapper-minimap.lua)
+is adapted from a supplied MudForge example; its
+[authoring notes](skills/mudforge-mapper/references/custom-map-example.md)
+explain the native API integration and pending native checks.
 
 The 0.1.1 update incorporates the official authoring guide supplied for review on
 2026-10-18. It corrects trigger captures, storage ownership, library parity,
@@ -90,9 +96,15 @@ Import the `.lua` plugin examples through MudForge's plugin UI in a disposable
 world. Install `injected-counter.lua` as a library before its consumer;
 `guarded-map.lua` is also a library, not a standalone plugin. Commands include
 `toolbox-count`, `toolbox-score 42`, `toolbox-vitals-demo`,
-`toolbox-protocol-demo`, and `toolbox-map-inspect`. `toolbox-delay` requires a
-connected test session; `toolbox-cancel` cancels it. Examples never send game
+`toolbox-protocol-demo`, `toolbox-map-inspect`, and `toolbox-radar`.
+`toolbox-delay` requires a connected test session; `toolbox-cancel` cancels it.
+Examples never send game
 commands or walk automatically.
+
+The minimap starter opens a read-only embedded map and a canvas radar after map
+readiness. `toolbox-radar` toggles the radar using its live visibility state.
+Clicking a mapped room reports its name; a connected session also flashes only
+the latest clicked room for three seconds. Disconnected clicks leave no flash.
 
 `Char.Vitals` and `HEALTH`/`HEALTH_MAX` are demonstration schemas, not promises
 about any particular MUD. The synthetic commands bypass transport and matching.

@@ -1,5 +1,21 @@
 # Source ledger
 
+## Minimap starter — 2026-10-18
+
+User-supplied pasted **Mapper Minimap 1.0.1**, attributed to MudForge, reviewed
+as the source for the toolbox's native minimap and canvas radar example.
+The original source parsed as Lua 5.1 without execution. Source SHA-256:
+`b4eafcace1ba6828fb6648e0d2d32a8626ddefb90b0a6489aa7dae2d017fec98`.
+
+The distributed starter is an adaptation, not a byte-identical source copy.
+It retains both views and projection while adding lifecycle guards, map-update
+redraws, inherited fonts, validated numeric inputs, a namespaced alias, and one
+replaceable connected-only highlight timer. The original 400 ms first-paint
+claim and assertions about inspecting private client source are not retained
+as evidence. Native first-frame behavior and source implementation were not
+observed. Existing official-guide contracts inform the adaptation; new fixture
+checks establish plugin logic only.
+
 ## Authoring-guide update — 2026-10-18
 
 Reviewed the user-supplied official **MUD Web Client — AI Plugin & Library
